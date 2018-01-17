@@ -148,7 +148,23 @@ function calculPrice_ex1(){
     }
 }
 
-calculPrice_ex1()
+function calculPrice_ex2(){
+    for(var i = 0; i<deliveries.length; i++){
+        var truck = findTruck(deliveries[i]['truckerId'])
+        deliveries[i]['price'] = deliveries[i]['distance'] + ( deliveries[i]['volume'] * truck['pricePerVolume'])
+    }
+}
+
+function findTruck(deliveriesTruckID)
+{
+    for(var i = 0; i<truckers.length; i++){
+        if(truckers[i]['id'] == deliveriesTruckID){
+            return truckers[i]
+        }
+    }
+}
+
+calculPrice_ex2()
 
 console.log(truckers);
 console.log(deliveries);
