@@ -184,7 +184,7 @@ function calculDecreasing(deliverieVolume, pricePerVolTruck)
     }
 }
 
-function calculCommission()
+function calculCommission_ex3()
 {
     for(var i = 0; i<deliveries.length; i++){
         //deliveries[i]['price'] = deliveries[i]['distance'] + ( deliveries[i]['volume'] * truck['pricePerVolume'])
@@ -194,8 +194,20 @@ function calculCommission()
     }
 }
 
+function Deductible_ex4()
+{
+    for(var i = 0; i<deliveries.length; i++){
+        if(deliveries[i]['options']['deductibleReduction'] == true)
+        {
+            deliveries[i]['price'] = deliveries[i]['price'] + deliveries[i]['volume']
+            deliveries[i]['commission']['convargo'] = deliveries[i]['commission']['convargo'] + deliveries[i]['volume']
+        }
+    }
+}
+
 calculPrice_ex2()
-calculCommission()
+calculCommission_ex3()
+Deductible_ex4()
 
 console.log(truckers);
 console.log(deliveries);
