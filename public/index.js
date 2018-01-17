@@ -144,9 +144,11 @@ const actors = [{
 function calculPrice_ex1(){
     for(var i = 0; i<deliveries.length; i++){
         deliveries[i]['price'] = deliveries[i]['distance'] + deliveries[i]['volume']
-        console.log("here");
+        //console.log("here");
     }
 }
+
+calculPrice_ex1()
 
 console.log(truckers);
 console.log(deliveries);
