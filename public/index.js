@@ -143,15 +143,15 @@ const actors = [{
 
 function calculPrice_ex1(){
     for(var i = 0; i<deliveries.length; i++){
-        deliveries[i]['price'] = deliveries[i]['distance'] + deliveries[i]['volume']
-        //console.log("here");
+        var truck = findTruck(deliveries[i]['truckerId'])
+        deliveries[i]['price'] = deliveries[i]['distance'] + ( deliveries[i]['volume'] * truck['pricePerVolume'])
     }
 }
 
 function calculPrice_ex2(){
     for(var i = 0; i<deliveries.length; i++){
         var truck = findTruck(deliveries[i]['truckerId'])
-        deliveries[i]['price'] = deliveries[i]['distance'] + ( deliveries[i]['volume'] * truck['pricePerVolume'])
+        deliveries[i]['price'] = deliveries[i]['distance'] + calculDecreasing(deliveries[i]['volume'], truck['pricePerVolume'])
     }
 }
 
@@ -161,6 +161,23 @@ function findTruck(deliveriesTruckID)
         if(truckers[i]['id'] == deliveriesTruckID){
             return truckers[i]
         }
+    }
+}
+
+function calculDecreasing(deliverieVolume, pricePerVolTruck)
+{
+    if(deliverieVolume < 5)
+    {
+        return deliverieVolume * pricePerVolTruck
+    }
+    if(deliverieVolume >= 5){
+        return deliverieVolume * (pricePerVolTruck * 5/100)
+    }
+    if(deliverieVolume >= 10){
+        return deliverieVolume * (pricePerVolTruck * 10/100)
+    }
+    if(deliverieVolume >= 50){
+        return deliverieVolume * (pricePerVolTruck * 25/100)
     }
 }
 
