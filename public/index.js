@@ -212,3 +212,4 @@ Deductible_ex4()
 console.log(truckers);
 console.log(deliveries);
 console.log(actors);
+
