@@ -36,6 +36,7 @@ const deliveries = [{
   'price': 0,
   'commission': {
     'insurance': 0,
+    'treasury': 0,
     'convargo': 0
   }
 }, {
@@ -50,6 +51,7 @@ const deliveries = [{
   'price': 0,
   'commission': {
     'insurance': 0,
+    'treasury': 0,
     'convargo': 0
   }
 }, {
@@ -64,6 +66,7 @@ const deliveries = [{
   'price': 0,
   'commission': {
     'insurance': 0,
+    'treasury': 0,
     'convargo': 0
   }
 }];
@@ -181,7 +184,18 @@ function calculDecreasing(deliverieVolume, pricePerVolTruck)
     }
 }
 
+function calculCommission()
+{
+    for(var i = 0; i<deliveries.length; i++){
+        //deliveries[i]['price'] = deliveries[i]['distance'] + ( deliveries[i]['volume'] * truck['pricePerVolume'])
+        deliveries[i]['commission']['insurance'] = deliveries[i]['price']/2
+        deliveries[i]['commission']['treasury'] = Math.ceil(deliveries[i]['distance']/500)
+        deliveries[i]['commission']['convargo'] = deliveries[i]['price'] - deliveries[i]['commission']['insurance'] - deliveries[i]['commission']['treasury']
+    }
+}
+
 calculPrice_ex2()
+calculCommission()
 
 console.log(truckers);
 console.log(deliveries);
