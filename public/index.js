@@ -24,7 +24,7 @@ var truckers = [{
 //The `price` is updated from exercice 1
 //The `commission` is updated from exercice 3
 //The `options` is useful from exercice 4
-var deliveries = [{
+const deliveries = [{
   'id': 'bba9500c-fd9e-453f-abf1-4cd8f52af377',
   'shipper': 'bio-gourmet',
   'truckerId': 'f944a3ff-591b-4d5b-9b67-c7e08cba9791',
@@ -140,6 +140,13 @@ const actors = [{
     'amount': 0
   }]
 }];
+
+function calculPrice_ex1(){
+    for(var i = 0; i<deliveries.length; i++){
+        deliveries[i]['price'] = deliveries[i]['distance'] + deliveries[i]['volume']
+        console.log("here");
+    }
+}
 
 console.log(truckers);
 console.log(deliveries);
