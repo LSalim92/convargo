@@ -97,7 +97,7 @@ const actors = [{
     'amount': 0
   }]
 }, {
-  'rentalId': '65203b0a-a864-4dea-81e2-e389515752a8',
+  'deliveryId': '65203b0a-a864-4dea-81e2-e389515752a8',
   'payment': [{
     'who': 'shipper',
     'type': 'debit',
@@ -120,7 +120,7 @@ const actors = [{
     'amount': 0
   }]
 }, {
-  'rentalId': '94dab739-bd93-44c0-9be1-52dd07baa9f6',
+  'deliveryId': '94dab739-bd93-44c0-9be1-52dd07baa9f6',
   'payment': [{
     'who': 'shipper',
     'type': 'debit',
@@ -187,9 +187,9 @@ function calculDecreasing(deliverieVolume, pricePerVolTruck)
 function calculCommission_ex3()
 {
     for(var i = 0; i<deliveries.length; i++){
-        deliveries[i]['commission']['insurance'] = deliveries[i]['price']/2
+        deliveries[i]['commission']['insurance'] = (deliveries[i]['price']*30/100)/2
         deliveries[i]['commission']['treasury'] = Math.ceil(deliveries[i]['distance']/500)
-        deliveries[i]['commission']['convargo'] = deliveries[i]['price'] - deliveries[i]['commission']['insurance'] - deliveries[i]['commission']['treasury']
+        deliveries[i]['commission']['convargo'] = (deliveries[i]['price']*30/100) - deliveries[i]['commission']['insurance'] - deliveries[i]['commission']['treasury']
     }
 }
 
@@ -204,11 +204,50 @@ function Deductible_ex4()
     }
 }
 
+function Payment_ex5()
+{
+    for(var i = 0; i<deliveries.length; i++){
+      var actor = findActor(deliveries[i]['id']) //actors[i]
+      console.log(actor['deliveryId']);
+      console.log(actor['payment'][0]['who']);
+      for(var j = 0; j<actor['payment'].length; j++){
+      switch (actor['payment'][j]['who']) {
+          case 'shipper':
+            actor['payment'][j]['amount'] = deliveries[i]['price']
+            break;
+          case 'owner':
+            actor['payment'][j]['amount'] = deliveries[i]['price'] - deliveries[i]['commission']['insurance'] - deliveries[i]['commission']['treasury'] - deliveries[i]['commission']['convargo']
+            break;
+          case 'insurance':
+            actor['payment'][j]['amount'] = deliveries[i]['commission']['insurance']
+            break;
+          case 'treasury':
+            actor['payment'][j]['amount'] = deliveries[i]['commission']['treasury']
+            break;
+          case 'convargo':
+            actor['payment'][j]['amount'] = deliveries[i]['commission']['convargo']
+            break;
+          default:
+        }
+      }
+    }
+}
+
+function findActor(deliveriesID)
+{
+    for(var i = 0; i<actors.length; i++){
+        if(actors[i]['deliveryId'] == deliveriesID){ //'deliveryId'
+            console.log("here");
+            return actors[i]
+        }
+    }
+}
+
 calculPrice_ex2()
 calculCommission_ex3()
 Deductible_ex4()
+Payment_ex5()
 
 console.log(truckers);
 console.log(deliveries);
 console.log(actors);
-
