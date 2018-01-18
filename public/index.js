@@ -174,20 +174,19 @@ function calculDecreasing(deliverieVolume, pricePerVolTruck)
         return deliverieVolume * pricePerVolTruck
     }
     if(deliverieVolume >= 5){
-        return deliverieVolume * (pricePerVolTruck * 5/100)
+        return deliverieVolume * (pricePerVolTruck - (pricePerVolTruck * 5/100))
     }
     if(deliverieVolume >= 10){
-        return deliverieVolume * (pricePerVolTruck * 10/100)
+        return deliverieVolume * (pricePerVolTruck - (pricePerVolTruck * 10/100))
     }
     if(deliverieVolume >= 50){
-        return deliverieVolume * (pricePerVolTruck * 25/100)
+        return deliverieVolume * (pricePerVolTruck - (pricePerVolTruck * 25/100))
     }
 }
 
 function calculCommission_ex3()
 {
     for(var i = 0; i<deliveries.length; i++){
-        //deliveries[i]['price'] = deliveries[i]['distance'] + ( deliveries[i]['volume'] * truck['pricePerVolume'])
         deliveries[i]['commission']['insurance'] = deliveries[i]['price']/2
         deliveries[i]['commission']['treasury'] = Math.ceil(deliveries[i]['distance']/500)
         deliveries[i]['commission']['convargo'] = deliveries[i]['price'] - deliveries[i]['commission']['insurance'] - deliveries[i]['commission']['treasury']
@@ -212,4 +211,3 @@ Deductible_ex4()
 console.log(truckers);
 console.log(deliveries);
 console.log(actors);
-
